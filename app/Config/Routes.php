@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Contact;
+use App\Controllers\Employee;
 use App\Controllers\Profile;
 use CodeIgniter\Router\RouteCollection;
 
@@ -27,3 +28,5 @@ $routes->post('/contact', [Contact::class, 'store']);
 $routes->get('/profile/(:segment)', function ($myname) {
     return view('profile', ['myname' => $myname]);
 });
+
+$routes->get('/employees', [Employee::class, 'index']);

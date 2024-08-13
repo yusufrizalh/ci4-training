@@ -30,9 +30,7 @@ class Contact extends BaseController
         }
 
         $post = $this->validator->getValidated();
-        dd('name', $post['name']);
-        dd('email', $post['email']);
-        dd('message', $post['message']);
+        dd(['name', $post['name']]);
         // redirect()->to(base_url("/"));
     }
 }
