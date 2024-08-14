@@ -33,3 +33,4 @@ $routes->get('employees', [Employee::class, 'index']);
 $routes->get('employees/(:segment)', [Employee::class, 'show']);
 $routes->get('employees/edit/(:segment)', [Employee::class, 'edit']);
 $routes->post('employees/update/(:segment)', [Employee::class, 'update']);
+$routes->post('employees/delete/(:segment)', [Employee::class, 'destroy']);

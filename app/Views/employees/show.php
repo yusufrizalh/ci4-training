@@ -45,7 +45,7 @@ Employee Detail
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-md btn-secondary me-3" data-bs-dismiss="modal">Cancel</button>
-                                <form action="" method="post">
+                                <form action="<?= base_url('employees/delete/') . $employee['id']; ?>" method="post">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="btn btn-md btn-danger">Confirm</button>
                                 </form>

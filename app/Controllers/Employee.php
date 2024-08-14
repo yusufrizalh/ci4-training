@@ -107,4 +107,19 @@ class Employee extends BaseController
         // dd($update);
         return redirect()->to('employees');
     }
+
+    public function destroy($id = null)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employees');
+        $deleteEmp = $builder->where('id', $id)->delete();
+        if ($deleteEmp) {
+            session()->setFlashdata('message', 'Successfully deleted');
+            session()->setFlashdata('alert-class', 'alert-success');
+        } else {
+            session()->setFlashdata('message', 'Failed to delete');
+            session()->setFlashdata('alert-class', 'alert-danger');
+        }
+        return redirect()->to('employees');
+    }
 }
