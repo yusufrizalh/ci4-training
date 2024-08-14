@@ -44,13 +44,13 @@ Employees Data
         <?php $no = 1; ?>
         <?php foreach ($employees as $employee) : ?>
             <div class="col-md-4">
-                <div class="card shadow mb-4 me-2">
+                <a class="card shadow border-secondary mb-4 me-2 text-decoration-none" href="<?= base_url('employees/') . $employee['name']; ?>">
                     <div class="card-header bg-success text-white fw-bold">NO: <?= $no; ?></div>
                     <div class="card-body">
                         <p>Name: <b><?= $employee['name']; ?></b></p>
                         <p>Email: <b><?= $employee['email']; ?></b></p>
                     </div>
-                </div>
+                </a>
             </div>
             <?php $no++; ?>
         <?php endforeach; ?>

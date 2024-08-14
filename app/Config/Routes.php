@@ -29,4 +29,5 @@ $routes->get('/profile/(:segment)', function ($myname) {
     return view('profile', ['myname' => $myname]);
 });
 
-$routes->get('/employees', [Employee::class, 'index']);
+$routes->get('employees', [Employee::class, 'index']);
+$routes->get('employees/(:segment)', [Employee::class, 'show']);

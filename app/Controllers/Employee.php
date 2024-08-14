@@ -13,15 +13,15 @@ class Employee extends BaseController
         $builder = $db->table('employees');
         $pager = service('pager');
 
-        $perpage = 3;
+        $perPage = 6;
         $page = $this->request->getVar('page') ?? 1;
-        $offset = ($page - 1) * $perpage;
+        $offset = ($page - 1) * $perPage;
         $total = $builder->countAllResults();
-        $pager_links = $pager->makeLinks($page, $perpage, $total);
+        $pager_links = $pager->makeLinks($page, $perPage, $total);
 
         $employees = $builder->select('*')
             ->orderBy('created_at', 'DESC')
-            ->get($perpage, $offset)
+            ->get($perPage, $offset)
             ->getResultArray();
 
         $data = [
@@ -30,5 +30,18 @@ class Employee extends BaseController
         ];
 
         return view('employees/index', $data);
+    }
+
+    public function show($name = null)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employees');
+        $employee = $builder
+            ->select('id, name, email, phone, address')
+            ->where('name', $name)
+            ->get()
+            ->getResultArray();
+        // dd($employee);
+        return view('employees/show', ['employee' => $employee[0]]);
     }
 }
