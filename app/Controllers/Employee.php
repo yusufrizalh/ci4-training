@@ -58,6 +58,54 @@ class Employee extends BaseController
         return view('employees/edit', ['employee' => $employee[0]]);
     }
 
+    public function create()
+    {
+        helper('form');
+        return view('employees/create');
+    }
+
+    public function store()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employees');
+        helper('form');
+
+        $data = $this->request->getPost([
+            'name',
+            'email',
+            'phone',
+            'address'
+        ]);
+
+        if (! $this->validateData($data, [
+            'name' => 'required|min_length[8]',
+            'email' => 'required|valid_email',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ])) {;
+            return $this->create();
+        }
+
+        $post = $this->validator->getValidated();
+
+        $create = $builder->insert([
+            'name' => $post['name'],
+            'email' => $post['email'],
+            'phone' => $post['phone'],
+            'address' => $post['address']
+        ]);
+
+        if ($create) {
+            session()->setFlashdata('message', 'Successfully created');
+            session()->setFlashdata('alert-class', 'alert-success');
+        } else {
+            session()->setFlashdata('message', 'Failed to create');
+            session()->setFlashdata('alert-class', 'alert-danger');
+        }
+
+        return redirect()->to('employees');
+    }
+
     public function update($id = null)
     {
         $db = \Config\Database::connect();

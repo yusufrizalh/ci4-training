@@ -13,7 +13,7 @@ Employees Data
     <div>
         <h1>Employees Data</h1>
     </div>
-    <div><a href="" class="btn btn-success fw-bold shadow">Create Employee</a></div>
+    <div><a href="<?= base_url('employees/create'); ?>" class="btn btn-success fw-bold shadow">Create Employee</a></div>
 </div>
 <hr>
 
