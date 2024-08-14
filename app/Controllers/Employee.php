@@ -44,4 +44,67 @@ class Employee extends BaseController
         // dd($employee);
         return view('employees/show', ['employee' => $employee[0]]);
     }
+
+    public function edit($id = null)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employees');
+        $employee = $builder
+            ->select('*')
+            ->where('id', $id)
+            ->get()
+            ->getResultArray();
+        // dd($employee);
+        return view('employees/edit', ['employee' => $employee[0]]);
+    }
+
+    public function update($id = null)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('employees');
+        helper('form');
+
+        $employee = $builder
+            ->select('*')
+            ->where('id', $id)
+            ->get()
+            ->getResultArray();
+
+        $data = $this->request->getPost([
+            'name',
+            'email',
+            'phone',
+            'address'
+        ]);
+
+        if (! $this->validateData($data, [
+            'name' => 'required|min_length[8]',
+            'email' => 'required|valid_email',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ])) {
+            // return $this->edit();
+            return view('employees/edit', ['employee' => $employee[0]]);
+        }
+
+        $post = $this->validator->getValidated();
+
+        $update = $builder->set([
+            'name' => $post['name'],
+            'email' => $post['email'],
+            'phone' => $post['phone'],
+            'address' => $post['address']
+        ])->where('id', $id)->update();
+
+        if ($update) {
+            session()->setFlashdata('message', 'Successfully updated');
+            session()->setFlashdata('alert-class', 'alert-success');
+        } else {
+            session()->setFlashdata('message', 'Failed to update');
+            session()->setFlashdata('alert-class', 'alert-danger');
+        }
+
+        // dd($update);
+        return redirect()->to('employees');
+    }
 }

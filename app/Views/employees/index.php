@@ -9,7 +9,12 @@ Employees Data
 <!-- content -->
 <?= $this->section("content"); ?>
 
-<h1>Employees Data</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <h1>Employees Data</h1>
+    </div>
+    <div><a href="" class="btn btn-success fw-bold shadow">Create Employee</a></div>
+</div>
 <hr>
 
 <!-- <table class="table table-bordered table-hover">
@@ -38,6 +43,13 @@ Employees Data
         ?>
     </tbody>
 </table> -->
+
+<!-- display alert message -->
+<?php if (session()->has('message')): ?>
+    <div class="alert <?= session()->getFlashdata('alert-class'); ?>">
+        <?= session()->getFlashdata('message'); ?>
+    </div>
+<?php endif; ?>
 
 <?php if ($employees): ?>
     <div class="row">

@@ -21,6 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('contact') ?>">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('employees') ?>">Employees</a>
+                </li>
             </ul>
         </div>
     </div>
