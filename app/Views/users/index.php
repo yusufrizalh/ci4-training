@@ -29,11 +29,12 @@ Users
         <?php endforeach; ?>
 
         <!-- pagination -->
-
-        <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="mt-5">
             <?php if (!empty($pager)): ?>
                 <?= $pager->links('group1', 'full_pager'); ?>
             <?php endif; ?>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
             <button type="button" class="btn btn-sm btn-light">
                 <?= 'Page ' . $currentPage . ' of ' . $totalPages; ?>
             </button>

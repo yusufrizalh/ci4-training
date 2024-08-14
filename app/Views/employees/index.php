@@ -68,13 +68,11 @@ Employees Data
         <?php endforeach; ?>
 
         <!-- pagination -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center mt-5">
-                <li class="page-item">
-                    <?= $pager_links ?>
-                </li>
-            </ul>
-        </nav>
+        <div class="d-flex justify-content-center align-items-center mt-5">
+            <?php if (!empty($pager)): ?>
+                <?= $pager_links; ?>
+            <?php endif; ?>
+        </div>
     </div>
 <?php else: ?>
     <div class="alert alert-warning">

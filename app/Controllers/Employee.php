@@ -17,7 +17,7 @@ class Employee extends BaseController
         $page = $this->request->getVar('page') ?? 1;
         $offset = ($page - 1) * $perPage;
         $total = $builder->countAllResults();
-        $pager_links = $pager->makeLinks($page, $perPage, $total);
+        $pager_links = $pager->makeLinks($page, $perPage, $total, 'full_pager');
 
         $employees = $builder->select('*')
             ->orderBy('created_at', 'DESC')
