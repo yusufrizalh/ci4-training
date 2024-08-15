@@ -42,6 +42,7 @@ class User extends BaseController
             ->where('users.username', $username)
             ->paginate(6, 'group1');
         $query_userskills = $usermodel
+            ->distinct()
             ->select('users.*, skills.skill_name')
             ->join('userskills', 'userskills.fk_user_id = users.id')
             ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
@@ -74,6 +75,20 @@ class User extends BaseController
         $data = ['department' => $query];
         // dd($data);
         return view('users/showdept', $data);
+    }
+    public function showskill($skill = null)
+    {
+        $usermodel = new UserModel();
+        $query = $usermodel
+            ->select('users.*, skills.skill_name')
+            ->join('userskills', 'userskills.fk_user_id = users.id')
+            ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
+            ->where('users.status', 1)
+            ->where('skills.skill_name', $skill)
+            ->findAll();
+        $data = ['skill' => $query];
+        // dd($data);
+        return view('users/showskill', $data);
     }
 
     public function create()

@@ -14,7 +14,7 @@ class UserskillsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'fk_user_id',
-        'fk_skill_id'
+        'fk_skill_id',
     ];
 
     protected bool $allowEmptyInserts = false;

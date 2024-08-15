@@ -46,4 +46,5 @@ $routes->get('users/edit/(:segment)', [User::class, 'edit']);
 $routes->post('users/update/(:segment)', [User::class, 'update']);
 $routes->get('users/(:segment)', [User::class, 'show']);
 $routes->get('departments/(:segment)', [User::class, 'showdept']);
+$routes->get('skills/(:segment)', [User::class, 'showskill']);
 $routes->post('users/delete/(:segment)', [User::class, 'destroy']);
