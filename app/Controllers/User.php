@@ -13,8 +13,10 @@ class User extends BaseController
     {
         // $pager = Services::pager();
         $usermodel = new UserModel();
-        $users = $usermodel->orderBy('created_at', 'DESC')
-            ->where('status', 1)
+        $users = $usermodel->select('users.*, departments.dept_name')
+            ->join('`departments', 'departments.dept_id = users.fk_dept_id')
+            ->orderBy('users.created_at', 'DESC')
+            ->where('users.status', 1)
             ->paginate(6, 'group1');
         $data = [
             'users' => $users,
@@ -28,10 +30,52 @@ class User extends BaseController
         // dd($data);
         return view('users/index', $data);
     }
+
     public function show($username = null)
     {
-        return view('users/show');
+        $usermodel = new UserModel();
+        $query_dept = $usermodel
+            ->select('users.*, departments.dept_name')
+            ->join('departments', 'departments.dept_id = users.fk_dept_id')
+            ->orderBy('users.username', 'ASC')
+            ->where('users.status', 1)
+            ->where('users.username', $username)
+            ->paginate(6, 'group1');
+        $query_userskills = $usermodel
+            ->select('users.*, skills.skill_name')
+            ->join('userskills', 'userskills.fk_user_id = users.id')
+            ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
+            ->where('users.status', 1)
+            ->where('users.username', $username)
+            ->paginate(6, 'group1');
+        $data = [
+            'users' => $query_dept,
+            'userskills' => $query_userskills,
+            'pager' => $usermodel->pager,
+            'currentPage' => $usermodel->pager->getCurrentPage('group1'),
+            'totalPages' => $usermodel->pager->getPageCount('group1'),
+            'pageHeading' => 'Users Data',
+            'subHeading' => 'Users Data',
+            'typography' => Services::typography(),
+        ];
+        // dd($data);
+        return view('users/show', $data);
     }
+
+    public function showdept($department = null)
+    {
+        $usermodel = new UserModel();
+        $query = $usermodel
+            ->select('departments.dept_name, users.username, users.usermail, users.status')
+            ->join('`departments', 'departments.dept_id = users.fk_dept_id')
+            ->where('users.status', 1)
+            ->where('departments.dept_name', $department)
+            ->findAll();
+        $data = ['department' => $query];
+        // dd($data);
+        return view('users/showdept', $data);
+    }
+
     public function create()
     {
         helper('form');

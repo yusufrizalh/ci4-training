@@ -4,20 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class UserskillsModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = 'userskills';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'username',
-        'usermail',
-        'userpass',
-        'status',
-        'fk_dept_id',
+        'fk_user_id',
+        'fk_skill_id'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -49,5 +46,4 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
 }

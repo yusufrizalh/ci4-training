@@ -17,13 +17,23 @@ Users
         <?php $no = 1; ?>
         <?php foreach ($users as $user) : ?>
             <div class="col-md-4">
-                <a class="card shadow border-secondary mb-4 me-2 text-decoration-none" href="<?= base_url('users/') . $user['username']; ?>">
+                <div class="card shadow border-secondary mb-4 me-2 text-decoration-none">
                     <div class="card-header bg-success text-white fw-bold">NO: <?= $no; ?></div>
                     <div class="card-body">
-                        <p>Name: <b><?= $user['username']; ?></b></p>
+                        <p>Name: <b>
+                                <a class="text-primary text-decoration-none"
+                                    href="<?= base_url('users/') . $user['username']; ?>">
+                                    <?= $user['username']; ?>
+                                </a>
+                            </b></p>
                         <p>Email: <b><?= $user['usermail']; ?></b></p>
                     </div>
-                </a>
+                    <div class="card-footer">
+                        <span class="fw-bold">
+                            <a href="<?= base_url('departments/') . $user['dept_name']; ?>" class="text-primary text-decoration-none"><?= $user['dept_name']; ?></a>
+                        </span>
+                    </div>
+                </div>
             </div>
             <?php $no++; ?>
         <?php endforeach; ?>
