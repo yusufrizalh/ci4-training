@@ -8,8 +8,24 @@ Users
 
 <!-- content -->
 <?= $this->section("content"); ?>
-
-<h1>Users Data</h1>
+<div class="row d-flex justify-content-between align-items-center">
+    <div class="col-md-6">
+        <h1>Users Data</h1>
+    </div>
+    <div class="col-md-6">
+        <form action="<?= base_url('searchuser'); ?>" method="get" id="searchform">
+            <?= csrf_field(); ?>
+            <div class="d-flex justify-content-center">
+                <input type="text" name="search"
+                    placeholder="Search user name or email or department"
+                    class="form-control me-3" autocomplete="off">
+                <input type="submit" value="Search"
+                    onclick="document.getElementById('searchform').submit();"
+                    class="btn btn-sm btn-success">
+            </div>
+        </form>
+    </div>
+</div>
 <hr>
 
 <?php if ($users):  ?>

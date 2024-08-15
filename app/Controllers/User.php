@@ -113,4 +113,48 @@ class User extends BaseController
     {
         //
     }
+
+    public function searchuser()
+    {
+        $request = service('request');
+        $searchdata = $request->getGet();
+        $search = "";
+
+        if (isset($searchdata) && isset($searchdata['search'])) {
+            $search = $searchdata['search'];
+        }
+
+        $usermodel = new UserModel();
+
+        if ($search == "") {
+            $alldata = $usermodel
+                ->select('users.*, departments.dept_name')
+                ->join('`departments', 'departments.dept_id = users.fk_dept_id')
+                ->orderBy('users.created_at', 'DESC')
+                ->where('users.status', 1)
+                ->paginate(6, 'group1');
+        } else {
+            $alldata = $usermodel
+                ->select('users.*, departments.dept_name')
+                ->orLike('users.username', $search)
+                ->orLike('users.usermail', $search)
+                ->orLike('departments.dept_name', $search)
+                ->join('`departments', 'departments.dept_id = users.fk_dept_id')
+                ->orderBy('users.created_at', 'DESC')
+                ->where('users.status', 1)
+                ->paginate(6, 'group1');
+        }
+
+        $data = [
+            'users' => $alldata,
+            'pager' => $usermodel->pager,
+            'currentPage' => $usermodel->pager->getCurrentPage('group1'),
+            'totalPages' => $usermodel->pager->getPageCount('group1'),
+            'pageHeading' => 'Users Data',
+            'subHeading' => 'Users Data',
+            'typography' => Services::typography(),
+        ];
+        // dd($data);
+        return view('users/index', $data);
+    }
 }

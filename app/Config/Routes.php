@@ -39,7 +39,7 @@ $routes->post('employees/update/(:segment)', [Employee::class, 'update']);
 $routes->post('employees/delete/(:segment)', [Employee::class, 'destroy']);
 
 $routes->get('users', [User::class, 'index']);
-// $routes->get('users', [User::class, 'indexRelation']);
+$routes->get('searchuser', [User::class, 'searchuser']);
 $routes->get('users/create', [User::class, 'create']);
 $routes->post('users', [User::class, 'store']);
 $routes->get('users/edit/(:segment)', [User::class, 'edit']);
