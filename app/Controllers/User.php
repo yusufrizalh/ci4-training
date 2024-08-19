@@ -13,10 +13,10 @@ class User extends BaseController
     {
         // $pager = Services::pager();
         $usermodel = new UserModel();
-        $users = $usermodel->select('users.*, departments.dept_name')
-            ->join('`departments', 'departments.dept_id = users.fk_dept_id')
-            ->orderBy('users.created_at', 'DESC')
-            ->where('users.status', 1)
+        $users = $usermodel->select('user.*, departments.dept_name')
+            ->join('`departments', 'departments.dept_id = user.fk_dept_id')
+            ->orderBy('user.created_at', 'DESC')
+            ->where('user.status', 1)
             ->paginate(6, 'group1');
         $data = [
             'users' => $users,
@@ -35,19 +35,19 @@ class User extends BaseController
     {
         $usermodel = new UserModel();
         $query_dept = $usermodel
-            ->select('users.*, departments.dept_name')
-            ->join('departments', 'departments.dept_id = users.fk_dept_id')
-            ->orderBy('users.username', 'ASC')
-            ->where('users.status', 1)
-            ->where('users.username', $username)
+            ->select('user.*, departments.dept_name')
+            ->join('departments', 'departments.dept_id = user.fk_dept_id')
+            ->orderBy('user.username', 'ASC')
+            ->where('user.status', 1)
+            ->where('user.username', $username)
             ->paginate(6, 'group1');
         $query_userskills = $usermodel
             ->distinct()
-            ->select('users.*, skills.skill_name')
-            ->join('userskills', 'userskills.fk_user_id = users.id')
+            ->select('user.*, skills.skill_name')
+            ->join('userskills', 'userskills.fk_user_id = user.id')
             ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
-            ->where('users.status', 1)
-            ->where('users.username', $username)
+            ->where('user.status', 1)
+            ->where('user.username', $username)
             ->paginate(6, 'group1');
         $data = [
             'users' => $query_dept,
@@ -67,9 +67,9 @@ class User extends BaseController
     {
         $usermodel = new UserModel();
         $query = $usermodel
-            ->select('departments.dept_name, users.username, users.usermail, users.status')
-            ->join('`departments', 'departments.dept_id = users.fk_dept_id')
-            ->where('users.status', 1)
+            ->select('departments.dept_name, users.username, user.usermail, user.status')
+            ->join('`departments', 'departments.dept_id = user.fk_dept_id')
+            ->where('user.status', 1)
             ->where('departments.dept_name', $department)
             ->findAll();
         $data = ['department' => $query];
@@ -80,10 +80,10 @@ class User extends BaseController
     {
         $usermodel = new UserModel();
         $query = $usermodel
-            ->select('users.*, skills.skill_name')
-            ->join('userskills', 'userskills.fk_user_id = users.id')
+            ->select('user.*, skills.skill_name')
+            ->join('userskills', 'userskills.fk_user_id = user.id')
             ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
-            ->where('users.status', 1)
+            ->where('user.status', 1)
             ->where('skills.skill_name', $skill)
             ->findAll();
         $data = ['skill' => $query];
@@ -128,20 +128,20 @@ class User extends BaseController
 
         if ($search == "") {
             $alldata = $usermodel
-                ->select('users.*, departments.dept_name')
-                ->join('`departments', 'departments.dept_id = users.fk_dept_id')
-                ->orderBy('users.created_at', 'DESC')
-                ->where('users.status', 1)
+                ->select('user.*, departments.dept_name')
+                ->join('`departments', 'departments.dept_id = user.fk_dept_id')
+                ->orderBy('user.created_at', 'DESC')
+                ->where('user.status', 1)
                 ->paginate(6, 'group1');
         } else {
             $alldata = $usermodel
-                ->select('users.*, departments.dept_name')
-                ->orLike('users.username', $search)
-                ->orLike('users.usermail', $search)
+                ->select('user.*, departments.dept_name')
+                ->orLike('user.username', $search)
+                ->orLike('user.usermail', $search)
                 ->orLike('departments.dept_name', $search)
-                ->join('`departments', 'departments.dept_id = users.fk_dept_id')
-                ->orderBy('users.created_at', 'DESC')
-                ->where('users.status', 1)
+                ->join('`departments', 'departments.dept_id = user.fk_dept_id')
+                ->orderBy('user.created_at', 'DESC')
+                ->where('user.status', 1)
                 ->paginate(6, 'group1');
         }
 

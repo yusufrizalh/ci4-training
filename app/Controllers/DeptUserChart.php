@@ -18,11 +18,11 @@ class DeptUserChart extends BaseController
     {
         // $usermodel = new UserModel();
         $db = \Config\Database::connect();
-        $builder = $db->table('users');
+        $builder = $db->table('user');
         $query = $builder
-            ->select('departments.dept_name as dept_name, count(users.id) as num_of_users')
-            ->join('departments', 'departments.dept_id = users.fk_dept_id')
-            ->where('users.status', 1)
+            ->select('departments.dept_name as dept_name, count(user.id) as num_of_users')
+            ->join('departments', 'departments.dept_id = user.fk_dept_id')
+            ->where('user.status', 1)
             ->groupBy('departments.dept_name')
             ->orderBy('departments.dept_name', 'asc')
             ->get();
