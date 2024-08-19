@@ -40,18 +40,18 @@ $routes->get('employees/edit/(:segment)', [Employee::class, 'edit'], ['filter' =
 $routes->post('employees/update/(:segment)', [Employee::class, 'update'], ['filter' => 'authGuard']);
 $routes->post('employees/delete/(:segment)', [Employee::class, 'destroy'], ['filter' => 'authGuard']);
 
-$routes->get('users', [User::class, 'index']);
-$routes->get('searchuser', [User::class, 'searchuser']);
-$routes->get('users/create', [User::class, 'create']);
+$routes->get('users', [User::class, 'index'], ['filter' => 'authGuard']);
+$routes->get('searchuser', [User::class, 'searchuser'], ['filter' => 'authGuard']);
+$routes->get('users/create', [User::class, 'create'], ['filter' => 'authGuard']);
 $routes->post('users', [User::class, 'store']);
-$routes->get('users/edit/(:segment)', [User::class, 'edit']);
+$routes->get('users/edit/(:segment)', [User::class, 'edit'], ['filter' => 'authGuard']);
 $routes->post('users/update/(:segment)', [User::class, 'update']);
-$routes->get('users/(:segment)', [User::class, 'show']);
-$routes->get('departments/(:segment)', [User::class, 'showdept']);
-$routes->get('skills/(:segment)', [User::class, 'showskill']);
+$routes->get('users/(:segment)', [User::class, 'show'], ['filter' => 'authGuard']);
+$routes->get('departments/(:segment)', [User::class, 'showdept'], ['filter' => 'authGuard']);
+$routes->get('skills/(:segment)', [User::class, 'showskill'], ['filter' => 'authGuard']);
 $routes->post('users/delete/(:segment)', [User::class, 'destroy']);
-$routes->get('users/deptuserchart', [DeptUserChart::class, 'index']);
-$routes->get('users/deptuserchart/showchart', [DeptUserChart::class, 'showchart']);
+$routes->get('users/deptuserchart', [DeptUserChart::class, 'index'], ['filter' => 'authGuard']);
+$routes->get('users/deptuserchart/showchart', [DeptUserChart::class, 'showchart'], ['filter' => 'authGuard']);
 
 $routes->get('auth/register', [User::class, 'register']);
 $routes->post('auth/registeruser', [User::class, 'registerUser']);
