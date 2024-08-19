@@ -34,14 +34,12 @@ Department's User
         ]);
         var options = {
             // title: 'Chart Number of Users per Department',
-            legend: {
-                position: 'top'
-            },
-            is3D: false,
+            // legend: {
+            //     position: 'top'
+            // },
+            // is3D: false,
             pieHole: 0.4,
             // pieSliceText: 'label',
-            pieStartAngle: 100,
-            sliceVisibilityThreshold: .2
         };
         var chart = new google.visualization.PieChart(document.getElementById('googlechart'));
         chart.draw(data, options);

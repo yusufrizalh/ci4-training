@@ -1,5 +1,6 @@
 <!-- header -->
 <?php include "header.php"; ?>
+
 <!-- navbar -->
 <?php include "navbar.php"; ?>
 

@@ -82,7 +82,7 @@ class Employee extends BaseController
             'email' => 'required|valid_email',
             'phone' => 'required|numeric',
             'address' => 'required',
-        ])) {;
+        ])) {
             return $this->create();
         }
 

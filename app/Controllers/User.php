@@ -67,7 +67,7 @@ class User extends BaseController
     {
         $usermodel = new UserModel();
         $query = $usermodel
-            ->select('departments.dept_name, users.username, user.usermail, user.status')
+            ->select('departments.dept_name, user.username, user.usermail, user.status')
             ->join('`departments', 'departments.dept_id = user.fk_dept_id')
             ->where('user.status', 1)
             ->where('departments.dept_name', $department)
@@ -156,5 +156,111 @@ class User extends BaseController
         ];
         // dd($data);
         return view('users/index', $data);
+    }
+
+    public function register()
+    {
+        helper(['form']);
+        return view('auth/register');
+    }
+
+    public function registerUser()
+    {
+        $usermodel = new UserModel();
+        $db = \Config\Database::connect();
+        $builder = $db->table('user');
+
+        $data = $this->request->getPost([
+            'username',
+            'usermail',
+            'userpass',
+            'confirmpassword'
+        ]);
+
+        if (! $this->validateData($data, [
+            'username' => 'required|min_length[8]|max_length[20]',
+            'usermail' => 'required|valid_email|is_unique[user.usermail]',
+            'userpass' => 'required|min_length[8]',
+            'confirmpassword' => 'matches[userpass]',
+        ])) {
+            return $this->register();
+        };
+
+        $post = $this->validator->getValidated();
+
+        $register = $usermodel->insert([
+            'username' => $post['username'],
+            'usermail' => $post['usermail'],
+            'userpass' => password_hash($post['userpass'], PASSWORD_DEFAULT),
+        ]);
+
+        if ($register) {
+            session()->setFlashdata('message', 'Successfully registered');
+            session()->setFlashdata('alert-class', 'alert-success');
+        } else {
+            session()->setFlashdata('message', 'Failed to register');
+            session()->setFlashdata('alert-class', 'alert-danger');
+        }
+
+        return redirect()->to('auth/login');
+    }
+
+    public function login()
+    {
+        helper(['form']);
+        return view('auth/login');
+    }
+
+    public function loginUser()
+    {
+        $usermodel = new UserModel();
+        $db = \Config\Database::connect();
+        $builder = $db->table('user');
+        $session = session();
+
+        $data = $this->request->getPost([
+            'usermail',
+            'userpass',
+        ]);
+
+        if (! $this->validateData($data, [
+            'usermail' => 'required|valid_email',
+            'userpass' => 'required',
+        ])) {
+            return $this->login();
+        };
+
+        $post = $this->validator->getValidated();
+
+        $login = $usermodel->where('usermail', $post['usermail'])->first();
+
+        if ($login) {
+            $password = $login['userpass'];
+            $authPassword = password_verify($post['userpass'], $password);
+            if ($authPassword) {
+                $sessionData = [
+                    'username' => $login['username'],
+                    'usermail' => $login['usermail'],
+                    'isLoggedIn' => TRUE,
+                ];
+                $session->set($sessionData);
+                return redirect()->to('auth/dashboard');
+            } else {
+                $session->setFlashdata('message', 'Password is incorrect');
+                $session->setFlashdata('alert-class', 'alert-danger');
+                return redirect()->to('auth/login');
+            }
+        } else {
+            $session->setFlashdata('message', 'Email does not exist');
+            $session->setFlashdata('alert-class', 'alert-danger');
+            return redirect()->to('auth/login');
+        }
+    }
+
+    public function logoutUser()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('auth/login');
     }
 }

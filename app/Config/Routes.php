@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Contact;
+use App\Controllers\Dashboard;
 use App\Controllers\DeptUserChart;
 use App\Controllers\Employee;
 use App\Controllers\Profile;
@@ -31,13 +32,13 @@ $routes->get('/profile/(:segment)', function ($myname) {
     return view('profile', ['myname' => $myname]);
 });
 
-$routes->get('employees', [Employee::class, 'index']);
-$routes->get('employees/create', [Employee::class, 'create']);
-$routes->post('employees', [Employee::class, 'store']);
-$routes->get('employees/(:segment)', [Employee::class, 'show']);
-$routes->get('employees/edit/(:segment)', [Employee::class, 'edit']);
-$routes->post('employees/update/(:segment)', [Employee::class, 'update']);
-$routes->post('employees/delete/(:segment)', [Employee::class, 'destroy']);
+$routes->get('employees', [Employee::class, 'index'], ['filter' => 'authGuard']);
+$routes->get('employees/create', [Employee::class, 'create'], ['filter' => 'authGuard']);
+$routes->post('employees', [Employee::class, 'store'], ['filter' => 'authGuard']);
+$routes->get('employees/(:segment)', [Employee::class, 'show'], ['filter' => 'authGuard']);
+$routes->get('employees/edit/(:segment)', [Employee::class, 'edit'], ['filter' => 'authGuard']);
+$routes->post('employees/update/(:segment)', [Employee::class, 'update'], ['filter' => 'authGuard']);
+$routes->post('employees/delete/(:segment)', [Employee::class, 'destroy'], ['filter' => 'authGuard']);
 
 $routes->get('users', [User::class, 'index']);
 $routes->get('searchuser', [User::class, 'searchuser']);
@@ -49,6 +50,12 @@ $routes->get('users/(:segment)', [User::class, 'show']);
 $routes->get('departments/(:segment)', [User::class, 'showdept']);
 $routes->get('skills/(:segment)', [User::class, 'showskill']);
 $routes->post('users/delete/(:segment)', [User::class, 'destroy']);
-
 $routes->get('users/deptuserchart', [DeptUserChart::class, 'index']);
 $routes->get('users/deptuserchart/showchart', [DeptUserChart::class, 'showchart']);
+
+$routes->get('auth/register', [User::class, 'register']);
+$routes->post('auth/registeruser', [User::class, 'registerUser']);
+$routes->get('auth/login', [User::class, 'login']);
+$routes->post('auth/loginuser', [User::class, 'loginUser']);
+$routes->get('auth/dashboard', [Dashboard::class, 'index'], ['filter' => 'authGuard']);
+$routes->get('auth/logout', [User::class, 'logoutUser']);
