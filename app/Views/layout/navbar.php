@@ -24,8 +24,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('employees') ?>">Employees</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('users') ?>">Users</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Users
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?= base_url('users') ?>">Users Data</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url('users/deptuserchart/showchart') ?>">Users Chart</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
