@@ -3,7 +3,7 @@
 
 <!-- page title -->
 <?= $this->section("pagetitle"); ?>
-Employees Data
+Employees
 <?= $this->endSection(); ?>
 
 <!-- content -->
