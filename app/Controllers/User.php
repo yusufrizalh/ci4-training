@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\UserskillsModel;
 use Config\Services;
 
 class User extends BaseController
@@ -98,6 +99,7 @@ class User extends BaseController
     public function store()
     {
         $usermodel = new UserModel();
+        $userskillsmodel = new UserskillsModel();
         $db = \Config\Database::connect();
         $builder = $db->table('user');
 
@@ -105,7 +107,8 @@ class User extends BaseController
             'username',
             'usermail',
             'userpass',
-            'fk_dept_id'
+            'fk_dept_id',
+            'skills[]',
         ]);
 
         if (! $this->validateData($data, [
@@ -113,6 +116,7 @@ class User extends BaseController
             'usermail' => 'required|valid_email|is_unique[user.usermail]',
             'userpass' => 'required|min_length[8]',
             'fk_dept_id' => 'required',
+            'skills[]' => 'required',
         ])) {
             return $this->create();
         };
@@ -125,8 +129,18 @@ class User extends BaseController
             'userpass' => password_hash($post['userpass'], PASSWORD_DEFAULT),
             'fk_dept_id' => $post['fk_dept_id'],
         ]);
+        $fk_user_id = $usermodel->getInsertID();
+        $checkbox = $post['skills[]'];
+        for ($i = 0; $i < count($checkbox); $i++) {
+            $skill_id = $checkbox[$i];
+            $createuserskills = $userskillsmodel->save([
+                'fk_user_id' => $fk_user_id,
+                'fk_skill_id' => $skill_id,
+            ]);
+            // $startId = $startId++;
+        }
 
-        if ($create) {
+        if ($create && $createuserskills) {
             session()->setFlashdata('message', 'Successfully created new user');
             session()->setFlashdata('alert-class', 'alert-success');
         } else {

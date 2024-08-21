@@ -16,7 +16,7 @@ Dashboard
     <div class="col-md-4">
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold h4">
-                Total Users
+                Total Active Users
             </div>
             <div class="card-body">
                 <h3><?= $countUsers['count_users'] . " Users."; ?></h3>

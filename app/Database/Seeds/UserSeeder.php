@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
     {
         $usermodel = new UserModel();
         $faker = \Faker\Factory::create();
-        for ($i = 1; $i < 101; $i++) {
+        for ($i = 1; $i < 11; $i++) {
             $usermodel->save([
                 'username' => $faker->name,
                 'usermail' => $faker->email,

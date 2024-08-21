@@ -30,7 +30,7 @@ Create New User
                 <form action="<?= base_url('users'); ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="form-group mb-4">
-                        <label for="username" class="fw-bold mb-2">User Name</label>
+                        <label for="username" class="fw-bold mb-2">User Name **</label>
                         <input type="text" name="username" class="form-control" autocomplete="off">
                     </div>
                     <?php if ($validation->getError('username')) { ?>
@@ -40,7 +40,7 @@ Create New User
                     <?php } ?>
 
                     <div class="form-group mb-4">
-                        <label for="usermail" class="fw-bold mb-2">User Email</label>
+                        <label for="usermail" class="fw-bold mb-2">User Email **</label>
                         <input type="text" name="usermail" class="form-control" autocomplete="off">
                     </div>
                     <?php if ($validation->getError('usermail')) { ?>
@@ -50,7 +50,7 @@ Create New User
                     <?php } ?>
 
                     <div class="form-group mb-4">
-                        <label for="userpass" class="fw-bold mb-2">User Password</label>
+                        <label for="userpass" class="fw-bold mb-2">User Password **</label>
                         <input type="password" name="userpass" class="form-control" autocomplete="off">
                     </div>
                     <?php if ($validation->getError('userpass')) { ?>
@@ -68,7 +68,7 @@ Create New User
                     $data = ['departments' => $departments];
                     ?>
                     <div class="form-group mb-4">
-                        <label for="userpass" class="fw-bold mb-2">Department</label>
+                        <label for="userpass" class="fw-bold mb-2">Department **</label>
                         <select name="fk_dept_id" class="form-control">
                             <?php if ($departments):  ?>
                                 <option disabled selected>-- Choose One --</option>
@@ -81,6 +81,33 @@ Create New User
                     <?php if ($validation->getError('fk_dept_id')) { ?>
                         <div class="alert alert-danger mt-2 mb-2">
                             <?= $error = $validation->getError('fk_dept_id'); ?>
+                        </div>
+                    <?php } ?>
+
+                    <?php
+                    $db = \Config\Database::connect();
+                    $builder = $db->table('skills');
+                    $skills = $builder->select('skills.*')->orderBy('skills.skill_name', 'asc')->get()->getResultArray();
+                    $data = ['skills' => $skills];
+                    ?>
+                    <div class="form-group mb-4">
+                        <label for="skills" class="fw-bold mb-2">Skills **</label>
+                        <div class="row">
+                            <?php if ($skills):  ?>
+                                <?php foreach ($skills as $skill):  ?>
+                                    <div class="col-md-4">
+                                        <div class="input-group-text mb-2">
+                                            <input class="form-check-input" type="checkbox" multiple name="skills[]" value="<?= $skill['skill_id']; ?>">
+                                            <span class="ms-3"><?= $skill['skill_name']; ?></span>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php if ($validation->getError('skills[]')) { ?>
+                        <div class="alert alert-danger mt-2 mb-2">
+                            <?= $error = $validation->getError('skills[]'); ?>
                         </div>
                     <?php } ?>
 

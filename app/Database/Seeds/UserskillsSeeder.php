@@ -11,9 +11,9 @@ class UserskillsSeeder extends Seeder
     {
         $userskilsmodel = new UserskillsModel();
         $faker = \Faker\Factory::create();
-        for ($i = 1; $i < 351; $i++) {
+        for ($i = 1; $i < 31; $i++) {
             $userskilsmodel->save([
-                'fk_user_id' => $faker->numberBetween(1, 102),
+                'fk_user_id' => $faker->numberBetween(1, 10),
                 'fk_skill_id' => $faker->numberBetween(1, 6),
             ]);
         }
