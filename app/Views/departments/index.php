@@ -26,7 +26,7 @@ Departments
     <div class="row">
         <?php $no = 1; ?>
         <?php foreach ($departments as $department) : ?>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card shadow border-secondary mb-4 me-2 text-decoration-none">
                     <div class="card-header bg-success text-white fw-bold">NO: <?= $no; ?></div>
                     <div class="card-body">

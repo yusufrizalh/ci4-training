@@ -13,7 +13,7 @@ class Employee extends BaseController
         $builder = $db->table('employees');
         $pager = service('pager');
 
-        $perPage = 6;
+        $perPage = 20;
         $page = $this->request->getVar('page') ?? 1;
         $offset = ($page - 1) * $perPage;
         $total = $builder->countAllResults();
