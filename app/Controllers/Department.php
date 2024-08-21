@@ -15,7 +15,7 @@ class Department extends BaseController
             ->orderBy('departments.dept_name', 'ASC')
             ->findAll();
         $data = ['departments' => $departments];
-        dd($data);
-        // return view('users/index', $data);
+        // dd($data);
+        return view('departments/index', $data);
     }
 }
