@@ -28,6 +28,13 @@ Users
 </div>
 <hr>
 
+<!-- display alert message -->
+<?php if (session()->has('message')): ?>
+    <div class="alert <?= session()->getFlashdata('alert-class'); ?>">
+        <?= session()->getFlashdata('message'); ?>
+    </div>
+<?php endif; ?>
+
 <?php if ($users):  ?>
     <div class="row">
         <?php $no = 1; ?>

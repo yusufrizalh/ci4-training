@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
-use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
 class User extends BaseController
@@ -98,7 +97,44 @@ class User extends BaseController
     }
     public function store()
     {
-        //
+        $usermodel = new UserModel();
+        $db = \Config\Database::connect();
+        $builder = $db->table('user');
+
+        $data = $this->request->getPost([
+            'username',
+            'usermail',
+            'userpass',
+            'fk_dept_id'
+        ]);
+
+        if (! $this->validateData($data, [
+            'username' => 'required|min_length[8]|max_length[20]',
+            'usermail' => 'required|valid_email|is_unique[user.usermail]',
+            'userpass' => 'required|min_length[8]',
+            'fk_dept_id' => 'required',
+        ])) {
+            return $this->create();
+        };
+
+        $post = $this->validator->getValidated();
+
+        $create = $usermodel->insert([
+            'username' => $post['username'],
+            'usermail' => $post['usermail'],
+            'userpass' => password_hash($post['userpass'], PASSWORD_DEFAULT),
+            'fk_dept_id' => $post['fk_dept_id'],
+        ]);
+
+        if ($create) {
+            session()->setFlashdata('message', 'Successfully created new user');
+            session()->setFlashdata('alert-class', 'alert-success');
+        } else {
+            session()->setFlashdata('message', 'Failed to create new user');
+            session()->setFlashdata('alert-class', 'alert-danger');
+        }
+
+        return redirect()->to('users');
     }
     public function edit($id = null)
     {

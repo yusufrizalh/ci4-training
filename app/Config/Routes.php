@@ -2,6 +2,7 @@
 
 use App\Controllers\Contact;
 use App\Controllers\Dashboard;
+use App\Controllers\Department;
 use App\Controllers\DeptUserChart;
 use App\Controllers\Employee;
 use App\Controllers\Profile;
@@ -52,6 +53,8 @@ $routes->get('skills/(:segment)', [User::class, 'showskill'], ['filter' => 'auth
 $routes->post('users/delete/(:segment)', [User::class, 'destroy']);
 $routes->get('users/deptuserchart', [DeptUserChart::class, 'index'], ['filter' => 'authGuard']);
 $routes->get('users/deptuserchart/showchart', [DeptUserChart::class, 'showchart'], ['filter' => 'authGuard']);
+
+$routes->get('departments', [Department::class, 'index'], ['filter' => 'authGuard']);
 
 $routes->get('auth/register', [User::class, 'register']);
 $routes->post('auth/registeruser', [User::class, 'registerUser']);
