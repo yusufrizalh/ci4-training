@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MyCodeigniter | <?= $this->renderSection("pagetitle"); ?></title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/MnPN2H8/Logo-X-Transparent-White.png">
 
     <!-- Font Awesome -->
     <link
