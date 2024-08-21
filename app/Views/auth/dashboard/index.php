@@ -36,10 +36,10 @@ Dashboard
     <div class="col-md-4">
         <div class="card shadow">
             <div class="card-header bg-primary text-white fw-bold h4">
-                Total Employees
+                Total Skills
             </div>
             <div class="card-body">
-                <h3><?= $countEmployees['count_employees'] . " Employees."; ?></h3>
+                <h3><?= $countSkills['count_skills'] . " Skills."; ?></h3>
             </div>
         </div>
     </div>

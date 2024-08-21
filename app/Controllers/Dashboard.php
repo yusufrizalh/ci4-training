@@ -25,9 +25,9 @@ class Dashboard extends BaseController
             ->get()
             ->getResultArray();
         // dd($countUsers[0]);
-        $builderEmployees = $db->table('employees');
-        $countEmployees = $builderEmployees
-            ->select('count(id) as count_employees')
+        $builderSkills = $db->table('skills');
+        $countSkills = $builderSkills
+            ->select('count(skill_id) as count_skills')
             ->get()
             ->getResultArray();
         // dd($countUsers[0]);
@@ -36,7 +36,7 @@ class Dashboard extends BaseController
             'session' => $session,
             'countUsers' => $countUsers[0],
             'countDepartments' => $countDepartments[0],
-            'countEmployees' => $countEmployees[0],
+            'countSkills' => $countSkills[0],
         ]);
     }
 
