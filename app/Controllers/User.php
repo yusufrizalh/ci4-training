@@ -16,7 +16,7 @@ class User extends BaseController
         $users = $usermodel->select('user.*, departments.dept_name')
             ->join('`departments', 'departments.dept_id = user.fk_dept_id')
             ->orderBy('user.created_at', 'DESC')
-            ->where('user.status', 1)
+            // ->where('user.status', 1)
             ->paginate(6, 'group1');
         $data = [
             'users' => $users,
@@ -38,7 +38,7 @@ class User extends BaseController
             ->select('user.*, departments.dept_name')
             ->join('departments', 'departments.dept_id = user.fk_dept_id')
             ->orderBy('user.username', 'ASC')
-            ->where('user.status', 1)
+            // ->where('user.status', 1)
             ->where('user.username', $username)
             ->paginate(6, 'group1');
         $query_userskills = $usermodel
@@ -46,7 +46,7 @@ class User extends BaseController
             ->select('user.*, skills.skill_name')
             ->join('userskills', 'userskills.fk_user_id = user.id')
             ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
-            ->where('user.status', 1)
+            // ->where('user.status', 1)
             ->where('user.username', $username)
             ->paginate(6, 'group1');
         $data = [
@@ -63,13 +63,18 @@ class User extends BaseController
         return view('users/show', $data);
     }
 
+    public function switchStatus($username = null)
+    {
+        $usermodel = new UserModel();
+    }
+
     public function showdept($department = null)
     {
         $usermodel = new UserModel();
         $query = $usermodel
             ->select('departments.dept_name, user.username, user.usermail, user.status')
             ->join('`departments', 'departments.dept_id = user.fk_dept_id')
-            ->where('user.status', 1)
+            // ->where('user.status', 1)
             ->where('departments.dept_name', $department)
             ->findAll();
         $data = ['department' => $query];
@@ -83,7 +88,7 @@ class User extends BaseController
             ->select('user.*, skills.skill_name')
             ->join('userskills', 'userskills.fk_user_id = user.id')
             ->join('skills', 'skills.skill_id = userskills.fk_skill_id')
-            ->where('user.status', 1)
+            // ->where('user.status', 1)
             ->where('skills.skill_name', $skill)
             ->findAll();
         $data = ['skill' => $query];
@@ -181,7 +186,7 @@ class User extends BaseController
                 ->select('user.*, departments.dept_name')
                 ->join('`departments', 'departments.dept_id = user.fk_dept_id')
                 ->orderBy('user.created_at', 'DESC')
-                ->where('user.status', 1)
+                // ->where('user.status', 1)
                 ->paginate(6, 'group1');
         } else {
             $alldata = $usermodel
@@ -191,7 +196,7 @@ class User extends BaseController
                 ->orLike('departments.dept_name', $search)
                 ->join('`departments', 'departments.dept_id = user.fk_dept_id')
                 ->orderBy('user.created_at', 'DESC')
-                ->where('user.status', 1)
+                // ->where('user.status', 1)
                 ->paginate(6, 'group1');
         }
 

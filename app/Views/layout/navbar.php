@@ -59,6 +59,18 @@
                             <li><a class="dropdown-item" href="<?= base_url('departments/create') ?>">Create New Department</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Skills
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?= base_url('skills') ?>">Skills Data</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="<?= base_url('skills/create') ?>">Create New Skill</a></li>
+                        </ul>
+                    </li>
                 </ul>
             <?php endif; ?>
             <?php if (!isset(session()->username)): ?>

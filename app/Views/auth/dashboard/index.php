@@ -19,7 +19,9 @@ Dashboard
                 Total Active Users
             </div>
             <div class="card-body">
-                <h3><?= $countUsers['count_users'] . " Users."; ?></h3>
+                <h3>
+                    <a href="<?= base_url('users'); ?>" class="text-primary text-decoration-none"><?= $countUsers['count_users'] . " Users."; ?></a>
+                </h3>
             </div>
         </div>
     </div>
@@ -29,7 +31,9 @@ Dashboard
                 Total Departments
             </div>
             <div class="card-body">
-                <h3><?= $countDepartments['count_departments'] . " Departments."; ?></h3>
+                <h3>
+                    <a href="<?= base_url('departments'); ?>" class="text-primary text-decoration-none"><?= $countDepartments['count_departments'] . " Departments."; ?></a>
+                </h3>
             </div>
         </div>
     </div>
@@ -39,7 +43,9 @@ Dashboard
                 Total Skills
             </div>
             <div class="card-body">
-                <h3><?= $countSkills['count_skills'] . " Skills."; ?></h3>
+                <h3>
+                    <a href="<?= base_url('skills'); ?>" class="text-primary text-decoration-none"><?= $countSkills['count_skills'] . " Skills."; ?></a>
+                </h3>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Controllers\Department;
 use App\Controllers\DeptUserChart;
 use App\Controllers\Employee;
 use App\Controllers\Profile;
+use App\Controllers\Skill;
 use App\Controllers\User;
 use CodeIgniter\Router\RouteCollection;
 
@@ -55,6 +56,7 @@ $routes->get('users/deptuserchart', [DeptUserChart::class, 'index'], ['filter' =
 $routes->get('users/deptuserchart/showchart', [DeptUserChart::class, 'showchart'], ['filter' => 'authGuard']);
 
 $routes->get('departments', [Department::class, 'index'], ['filter' => 'authGuard']);
+$routes->get('skills', [Skill::class, 'index'], ['filter' => 'authGuard']);
 
 $routes->get('auth/register', [User::class, 'register']);
 $routes->post('auth/registeruser', [User::class, 'registerUser']);
