@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark border-bottom border-body fixed-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg border-bottom border-body fixed-top" data-bs-theme="dark" style="background-color: #393175;">
     <div class=" container">
         <a class="navbar-brand" href="https://inixindo.id">
             <img src="https://i.ibb.co.com/MnPN2H8/Logo-X-Transparent-White.png" alt="LogoIX" width="24" height="24" class="d-inline-block align-text-bottom me-3">
@@ -74,7 +74,7 @@
                 </ul>
             <?php endif; ?>
             <?php if (!isset(session()->username)): ?>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" data-bs-theme="dark">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Userarea
